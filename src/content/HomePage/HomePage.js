@@ -21,9 +21,9 @@ const HomePage = () => {
       const response = await fetch(
         'https://nymisojo-back.herokuapp.com/Articles'
       );
-      const articles = await response.json();
+      const data = await response.json();
       setArticles(
-        articles.map((articleObj, idx) => (
+        data.map((articleObj, idx) => (
           <Article articleObj={articleObj} key={idx} />
         ))
       );
