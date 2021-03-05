@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600&display=swap');
+
 
 article {
   box-sizing: border-box;
   width: fit-content;
 
   h1 {
-    font-family: 'Inknut Antiqua', serif;
     font-weight: 400;
     margin: 0;
     max-width: 500px;
@@ -16,7 +14,6 @@ article {
   }
 
   .subheading {
-    font-family: 'Inknut Antiqua', serif;
     font-weight: 400;
     color: rgb(126, 126, 126);
     font-size: 0.8rem;
@@ -32,11 +29,10 @@ article {
     margin: 1rem;
   }
   .type-container {
-    font-family: 'Work Sans', sans-serif;
     max-width: 50ch;
     margin-bottom: 0;
-    p-content {
-      font-size: 0.875rem !important;
+    .p-content {
+      font-size: 1.2rem !important;
     }
   }
 }
@@ -83,17 +79,20 @@ article {
 }
 
 .hero {
-  max-width: 800px;
+  max-width: 500px;
   h1 {
     font-size: 2rem;
     line-height: 2.8rem;
+    
+  }
+  .type-container {
+    max-width: 80ch;
   }
 }
 
 .tl-article {
   margin: 0 0 0 1.5rem;
   padding: 3rem 3rem 3rem 1.5rem;
-  @extend %r;
   @extend %b;
 }
 
@@ -134,7 +133,7 @@ article {
 .t-article {
   padding: 3rem;
   @extend %b;
-  @extend %r;
+  @extend %l;
 }
 
 .c-article {

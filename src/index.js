@@ -1,3 +1,8 @@
+/**
+ * @author Adit Garg <adit.garg21k@gmail.com>
+ * @description entry-point for react
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
@@ -8,5 +13,5 @@ ReactDOM.render(
   <Router>
     <App />
   </Router>,
-  document.getElementById('root')
+  document.getElementById('app')
 );

@@ -5,6 +5,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import Article from '../../components/Article/Article.js';
+import getArticles from './query';
 
 const HomePage = () => {
   /**
@@ -12,34 +13,53 @@ const HomePage = () => {
    * @returns Homepage component
    * @example <Homepage />
    * @author Adit Garg <adit.garg21k@gmail.com>
-   * @todo FOOTER, DYNAMIC ARTICLE BORDER, RESPONSIVE PAGE
+   * @todo FOOTER, DYNAMIC ARTICLE BORDER
    */
-  const [articles, setArticles] = useState([]);
+  const [articlesByTag, setArticlesByTag] = useState([]);
   // https://www.robinwieruch.de/react-hooks-fetch-data - fetch async data trick
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        'https://nymisojo-back.herokuapp.com/Articles'
-      );
-      const data = await response.json();
-      setArticles(
-        data.map((articleObj, idx) => (
-          <Article articleObj={articleObj} key={idx} />
-        ))
-      );
+    const fetchArticles = async () => {
+      setArticlesByTag(await getArticles());
     };
-    fetchData();
+    fetchArticles();
   }, []);
-  return (
-    <>
-      <div className="article-container">{articles}</div>
-      <h1 className="container-h1">Health</h1>
-      <div className="article-container">{articles}</div>
-      <h1 className="container-h1">Life</h1>
-      <div className="article-container">{articles}</div>
-      <footer />
-    </>
-  );
+
+  const generateArticleList = (articles) => {
+    let heroSeen = false;
+    return articles.map((article, idx) => {
+      if (article.isHero) {
+        article.isHero = !heroSeen;
+        heroSeen = true;
+      }
+      return <Article articleObj={article} key={idx} />
+    })
+  }
+
+  const generateSections = (articlesByTag) => {
+    const resultJsx = [];
+    for (const articleGroup in articlesByTag) {
+      if (articleGroup === "Main"){
+         resultJsx.unshift(
+          <section key={articleGroup}>
+            <section className="article-container">{generateArticleList(articlesByTag[articleGroup])}</section>
+          </section>
+         )
+      }
+      else {
+        resultJsx.push(
+          <section key={articleGroup} id={articleGroup.replace(/ /g,"_")}>
+            <h1 className="container-h1">{articleGroup}</h1>
+            <section className="article-container">{generateArticleList(articlesByTag[articleGroup])}</section>
+          </section>
+        );
+      }
+      
+    }
+    return resultJsx;
+  };
+
+  const sections = generateSections(articlesByTag);
+  return <>{sections}</>;
 };
 
 export default HomePage;
